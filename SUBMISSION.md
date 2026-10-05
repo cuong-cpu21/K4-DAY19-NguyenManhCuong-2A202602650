@@ -112,12 +112,12 @@ git status                         # .env KHÔNG được xuất hiện
 git log --all -p | grep "sk-"      # PHẢI không ra gì
 ```
 
-- [ ] `src/graph.py` không còn `raise NotImplementedError`
-- [ ] `report/ONTOLOGY.md` đủ mục, khớp với graph thật (label và quan hệ)
-- [ ] `ket_qua_benchmark_kg.txt` có cột `judge` khác `-`
-- [ ] `report/REPORT_KG.md` đủ 5 mục, số liệu khớp file kết quả
-- [ ] Phân tích ít nhất 2 lỗi, mỗi lỗi có bằng chứng
-- [ ] Có 3 ảnh trong `report/img/`, mỗi ảnh thấy được ô truy vấn
-- [ ] (Bonus) Điền mục 7 `ONTOLOGY.md`, nộp kèm `ket_qua_benchmark_kg.hint.txt`
-- [ ] Repo tên `K4-DAY19-HoVaTen-MSSV`, đã push, link đã nộp lên vlearn
+- [x] `src/graph.py` không còn `raise NotImplementedError`
+- [x] `report/ONTOLOGY.md` đủ mục, khớp với graph thật (label và quan hệ)
+- [x] `ket_qua_benchmark_kg.txt` có cột `judge` khác `-`
+- [x] `report/REPORT_KG.md` đủ 5 mục, số liệu khớp file kết quả
+- [x] Phân tích ít nhất 2 lỗi, mỗi lỗi có bằng chứng
+- [x] Có 3 ảnh trong `report/img/`, mỗi ảnh thấy được ô truy vấn
+- [x] (Bonus) Điền mục 7 `ONTOLOGY.md`, nộp kèm `ket_qua_benchmark_kg.hint.txt`
+- [x] Repo tên `K4-DAY19-HoVaTen-MSSV`, đã push, link đã nộp lên vlearn
 - [ ] Đã tắt Neo4j nếu không dùng nữa: `docker stop neo4j-drug-kg`
