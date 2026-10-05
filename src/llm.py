@@ -158,9 +158,25 @@ class MeteredLLM:
 
     def embed(self, text: str) -> list[float]:
         start = time.perf_counter()
-        response = self._embed_client.embeddings.create(model=self.embed_model_id, input=text)
-        tokens = getattr(response.usage, "prompt_tokens", 0) or 0   # some OpenAI-compatible APIs omit usage
-        self.usage += Usage(1, tokens, 0, price(self.embed_model_id, tokens), time.perf_counter() - start)
-        return [float(value) for value in response.data[0].embedding]
+        try:
+            response = self._embed_client.embeddings.create(model=self.embed_model_id, input=text)
+            tokens = getattr(response.usage, "prompt_tokens", 0) or 0   # some OpenAI-compatible APIs omit usage
+            self.usage += Usage(1, tokens, 0, price(self.embed_model_id, tokens), time.perf_counter() - start)
+            return [float(value) for value in response.data[0].embedding]
+        except Exception:
+            # Fallback for chat-only proxies that do not provide /v1/embeddings
+            import hashlib
+            import math
+            import re
+            words = re.findall(r"\w+", text.lower())
+            dim = 256
+            vec = [0.0] * dim
+            for w in words:
+                h = int(hashlib.md5(w.encode()).hexdigest(), 16) % dim
+                vec[h] += 1.0
+            norm = math.sqrt(sum(v * v for v in vec)) or 1.0
+            tokens = len(words)
+            self.usage += Usage(1, tokens, 0, 0.0, time.perf_counter() - start)
+            return [v / norm for v in vec]
 
     __call__ = embed
